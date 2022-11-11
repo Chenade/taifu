@@ -1,0 +1,54 @@
+:root {
+  --background-color-1: #e33b39;
+  --background-color-2: #ad5ea1;
+  --background-color-3: #8fc429;
+  --background-color-4: #e5e5e5;
+  --background-color-5: #f8cece;
+
+  --color-light-1: #fefdfb;
+  --color-dark-1: #272e31;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  position: relative;
+}
+
+body {
+  min-height: 100vh;
+  transition: color 0.5s, background-color 0.5s;
+  line-height: 1.6;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin Large {
+  @media (max-width: 992px) {
+    @content;
+  }
+}
+
+@mixin Medium {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin Small {
+  @media (max-width: 576px) {
+    @content;
+  }
+}
