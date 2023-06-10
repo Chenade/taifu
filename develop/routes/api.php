@@ -59,11 +59,14 @@ Route::post('/ct', function(){
 
 Route::get('/banner/latest', function () {
     $latestRecords = DB::table('news')
+    ->where('del', 0)
+    ->select('id', 'title', 'image', 'ts', 'ord', 'created_at')
     ->orderBy('created_at', 'desc')
     ->take(2)
     ->union(function ($query) {
-        $query
+        $query->select('id', 'title', 'image', 'ts', 'ord', 'created_at')
             ->from('activity')
+            ->where('del', 0)
             ->orderBy('created_at', 'desc')
             ->take(2);
     })
