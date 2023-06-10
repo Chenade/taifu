@@ -58,17 +58,22 @@ Route::post('/ct', function(){
 });
 
 Route::get('/banner/latest', function () {
+    $latestRecords = DB::table('news')
+    ->orderBy('created_at', 'desc')
+    ->take(2)
+    ->union(function ($query) {
+        $query
+            ->from('activity')
+            ->orderBy('created_at', 'desc')
+            ->take(2);
+    })
+    ->get();
+    
     $result = [];
-    $result['news'] = DB::table('news') 
-            -> where('del', 0) 
-            -> orderBy('ord', 'DESC') 
-            -> first();
+    $result['news'] = $latestRecords[0];
+    $result['activity'] = $latestRecords[1];
     unset($result['news']->content);
     if ($result['news']) $result['news']->image = explode( ';', $result['news']->image )[0];
-    $result['activity'] = DB::table('activity') 
-            -> where('del', 0) 
-            -> orderBy('ord', 'DESC') 
-            -> first();
     unset($result['activity']->content);
     if ($result['news']) $result['activity']->image = explode( ';', $result['activity']->image )[0];
     
