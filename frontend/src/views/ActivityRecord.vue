@@ -37,7 +37,7 @@ import HeaderMain from '../components/HeaderMain.vue';
 import HeaderContent from '../components/HeaderContent.vue';
 import TagBlock from '../components/ActivityBlock/TagBlock.vue';
 import ContentBlock from '../components/ActivityBlock/ContentBlock.vue';
-import { getCurrentInstance, ref } from 'vue';
+import { getCurrentInstance, ref, onMounted } from 'vue';
 const { proxy } = getCurrentInstance();
 
 const title = ref('活動紀錄');
