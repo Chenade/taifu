@@ -58,20 +58,19 @@ Route::post('/ct', function(){
 });
 
 Route::get('/banner/latest', function () {
-    $latestRecords = DB::table('news')
-    ->where('del', 0)
-    ->select('id', 'title', 'image', 'ts', 'ord', 'created_at')
-    ->orderBy('created_at', 'desc')
-    ->take(2)
-    ->union(function ($query) {
-        $query->select('id', 'title', 'image', 'ts', 'ord', 'created_at')
-            ->from('activity')
-            ->where('del', 0)
-            ->orderBy('created_at', 'desc')
-            ->take(2);
-    })
-    ->get();
-    
+    // SELECT id, title, image, ts, ord, created_at, 'news' as source
+    // FROM news
+    // WHERE del = 0
+    // UNION ALL
+    $query = "
+        SELECT id, title, image, ts, ord, created_at, 'activity' as source
+        FROM activity
+        WHERE del = 0
+        ORDER BY created_at DESC
+        LIMIT 2
+    ";
+
+    $latestRecords = DB::select($query);
     $result = [];
     $result['news'] = $latestRecords[0];
     $result['activity'] = $latestRecords[1];

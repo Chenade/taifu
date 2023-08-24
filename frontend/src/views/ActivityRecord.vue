@@ -63,6 +63,23 @@ proxy.api.get('/activity/list/cat/3').then((response) => {
 proxy.api.get('/activity/list/cat/4').then((response) => {
   request.value.another = response;
 });
+
+onMounted(() => {
+  // Listen for hash change and scroll to the corresponding block
+  window.addEventListener('hashchange', scrollToHash);
+  scrollToHash(); // Initial scroll if hash is present in the URL
+});
+
+const scrollToHash = () => {
+  const hash = window.location.hash;
+  if (hash) {
+    const element = document.querySelector(hash);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+};
+
 </script>
 
 <style lang="scss" scoped>

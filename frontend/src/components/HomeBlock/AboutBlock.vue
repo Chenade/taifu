@@ -15,7 +15,7 @@
           </ul>
         </div>
       </div>
-      <router-link class="region" :to="'/message'">
+      <router-link class="region" :to="'/active'">
         <div class="image-box" v-if="news.image">
           <ImageComponent :src="news.image" />
           <div class="banner">{{ news.title }}</div>
